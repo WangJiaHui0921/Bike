@@ -1,6 +1,7 @@
 import React from 'react'
 import { Row, Col } from 'antd'
 import { Header, Footer, NavLeft } from "./components"
+import { Home } from "./pages"
 import styles from "./style/common.module.less"
 export class Admin extends React.Component {
     render() {
@@ -12,7 +13,7 @@ export class Admin extends React.Component {
                 <Col span={20} className={styles.main}>
                     <Header />
                     <Row className={styles.content}>
-                        content
+                        <Home />
                     </Row>
                     <Footer />
                 </Col>
