@@ -16,6 +16,17 @@
         padding:0 20px;
         .breadcrumbTitle{
             text-align:center;
+            font-size:18px;
+            &:after {
+                width:0;
+                height:0;
+                display:block;
+                content: "";
+                border:12px solid transparent;
+                border-top:9px solid #fff;
+                position:absolute;
+                left: 86px;
+            }
         }
         .weater{
             text-align:right;
