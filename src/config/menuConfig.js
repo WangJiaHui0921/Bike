@@ -6,7 +6,7 @@ const menuList = [
   {
     title: 'UI',
     key: '/ui',
-    children: [ 
+    children: [
       {
         title: '按钮',
         key: '/ui/buttons',
