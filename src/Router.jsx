@@ -9,7 +9,8 @@ import {
     Loadings,
     Notices,
     Messages,
-    Tabs
+    Tabs,
+    Gallery
 } from "./pages/ui"
 export default class IRouter extends Component {
     render() {
@@ -27,6 +28,7 @@ export default class IRouter extends Component {
                                 <Route path="/ui/notification" component={Notices} />
                                 <Route path="/ui/messages" component={Messages} />
                                 <Route path="/ui/tabs" component={Tabs} />
+                                <Route path="/ui/gallery" component={Gallery} />
                                 <Route component={Nomatch} />
                             </Admin>
                         } />
