@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { BrowserRouter, Route, Switch } from "react-router-dom"
 import App from "./App"
 import { Admin } from "./admin"
-import { Login, Detail, Nomatch } from "./pages"
+import { FormLogin, Detail, Nomatch, Register } from "./pages"
 import {
     Buttons,
     Modals,
@@ -19,7 +19,7 @@ export default class IRouter extends Component {
             <BrowserRouter>
                 <App>
                     <Switch>
-                        <Route path="/login" component={Login} />
+                        {/* <Route path="/login" component={Login} /> */}
                         <Route path="/order/detail" component={Detail} />
                         <Route path="/" render={() =>
                             <Admin>
@@ -31,6 +31,8 @@ export default class IRouter extends Component {
                                 <Route path="/ui/tabs" component={Tabs} />
                                 <Route path="/ui/gallery" component={Gallery} />
                                 <Route path="/ui/carousel" component={Carousels} />
+                                <Route path="/form/login" component={FormLogin} />
+                                <Route path="/form/reg" component={Register} />
                                 <Route component={Nomatch} />
                             </Admin>
                         } />
