@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { BrowserRouter, Route, Switch } from "react-router-dom"
 import App from "./App"
 import { Admin } from "./admin"
-import { FormLogin, Detail, Nomatch, Register } from "./pages"
+import { FormLogin, Detail, Nomatch, Register, BasicTable } from "./pages"
 import {
     Buttons,
     Modals,
@@ -11,7 +11,7 @@ import {
     Messages,
     Tabs,
     Gallery,
-    Carousels
+    Carousels,
 } from "./pages/ui"
 export default class IRouter extends Component {
     render() {
@@ -33,6 +33,7 @@ export default class IRouter extends Component {
                                 <Route path="/ui/carousel" component={Carousels} />
                                 <Route path="/form/login" component={FormLogin} />
                                 <Route path="/form/reg" component={Register} />
+                                <Route path="/table/basic" component={BasicTable} />
                                 <Route component={Nomatch} />
                             </Admin>
                         } />
