@@ -13,7 +13,6 @@ export class Header extends Component {
         }, 1000);
         let weatherApi = "https://devapi.qweather.com/v7/weather/now?location=101010100&key=62b40aa8f04f48f2bd1a227ece7af879"
         axios.get(weatherApi).then((response) => {
-            console.log(response);
             this.setState({
                 weather: response.data.now.text,
                 weaterWindDir: response.data.now.windDir
