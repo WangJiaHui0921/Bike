@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { BrowserRouter, Route, Switch } from "react-router-dom"
 import App from "./App"
 import { Admin } from "./admin"
-import { FormLogin, Detail, Nomatch, Register, BasicTable } from "./pages"
+import { FormLogin, Detail, Nomatch, Register, BasicTable, HighTable, City } from "./pages"
 import {
     Buttons,
     Modals,
@@ -34,6 +34,8 @@ export default class IRouter extends Component {
                                 <Route path="/form/login" component={FormLogin} />
                                 <Route path="/form/reg" component={Register} />
                                 <Route path="/table/basic" component={BasicTable} />
+                                <Route path="/table/high" component={HighTable} />
+                                <Route path="/city" component={City} />
                                 <Route component={Nomatch} />
                             </Admin>
                         } />

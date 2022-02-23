@@ -12,7 +12,7 @@ export default class Axios {
                 timeout: 5000
             }).then(res => {
                 if (res.status === 200 && res.data.code === 0) {
-                    resolve(res.data.result)
+                    resolve(res.data)
                 } else {
                     Modal.info({
                         title: "警告",

@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import axios from './../../axios/index';
-import { Card, Table } from 'antd';
+import Utils from "./../../utils/utils"
+import { Card, Modal, Table, Button, message } from 'antd';
 export class BasicTable extends Component {
+    params = {
+        page: 1
+    }
     componentWillMount() {
         const dataSource = [
             {
@@ -47,10 +51,28 @@ export class BasicTable extends Component {
             url: "/table/list",
             data: { params: { page: 1 } }
         }).then(res => {
-            this.setState({ dataSource2: res })
+            console.log(res);
+            this.setState({ dataSource2: res.result.list, pagination: Utils.pagination(res, (current) => { this.params.page = current; this.resquest() }) })
         })
     }
-
+    // 点击选中行
+    onRowClick = (record) => {
+        let selectedRowKeys = [record.id]
+        this.setState({ selectedRowKeys, selectedItem: record })
+    }
+    // 删除数据
+    handleDelete = () => {
+        let rows = this.state.selectedRowKeys;
+        Modal.confirm({
+            title: "删除提示",
+            content: `确定要删除${rows.join(",")}这些数据吗?`,
+            onOk: () => {
+                message.success("删除成功")
+                this.resquest()
+                this.setState({ selectedRowKeys: [] })
+            }
+        });
+    }
     render() {
         // 表格数据
         const columns = [
@@ -63,6 +85,7 @@ export class BasicTable extends Component {
             { title: "地址", dataIndex: "address", align: "center" },
             { title: "早起时间", dataIndex: "time", align: "center" }
         ]
+        const selectedRowKeys = this.state.selectedRowKeys
         return (
             <div>
                 <Card title="基础表格" style={{ marginBottom: 10 }}>
@@ -73,11 +96,43 @@ export class BasicTable extends Component {
                         bordered
                     />
                 </Card>
-                <Card title="动态渲染表格">
+                <Card title="动态渲染表格" style={{ marginBottom: 10 }}>
                     <Table
                         columns={columns}
                         dataSource={this.state.dataSource2}
                         pagination={false}
+                        bordered
+                    />
+                </Card>
+                <Card title="动态渲染表格-单选" style={{ marginBottom: 10 }}>
+                    <Table
+                        columns={columns}
+                        dataSource={this.state.dataSource2}
+                        pagination={false}
+                        rowSelection={{ type: 'radio', selectedRowKeys }}
+                        onRow={record => {
+                            return {
+                                onClick: () => this.onRowClick(record)   // 点击行
+                            };
+                        }}
+                        bordered
+                    />
+                </Card>
+                <Card title="动态渲染表格-复选" style={{ marginBottom: 10 }}>
+                    <div style={{ marginBottom: 10 }}><Button onClick={() => { this.handleDelete() }}>删除</Button></div>
+                    <Table
+                        columns={columns}
+                        dataSource={this.state.dataSource2}
+                        pagination={false}
+                        rowSelection={{ type: 'check', selectedRowKeys, onChange: (selectedRowKeys) => this.setState({ selectedRowKeys }) }}
+                        bordered
+                    />
+                </Card>
+                <Card title="动态渲染表格-分页" style={{ marginBottom: 10 }}>
+                    <Table
+                        columns={columns}
+                        dataSource={this.state.dataSource2}
+                        pagination={this.state.pagination}
                         bordered
                     />
                 </Card>
