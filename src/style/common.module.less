@@ -1,4 +1,14 @@
-@import "./loading.less";
+ul,li{
+    list-style: none;
+}
+.clearfix{
+    &::after{
+        content: "";
+        clear: both;
+        display: block;
+        visibility: hidden;
+    }
+}
 .container{
     .navLeft{
         height: calc(100vh);
