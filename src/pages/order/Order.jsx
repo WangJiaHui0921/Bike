@@ -1,11 +1,50 @@
 import React, { Component } from 'react';
-import { Card, Form, Button, Table, Modal, DatePicker, Select, message } from "antd"
+import { Card, Form, Button, Table, Modal, message } from "antd"
 import axios from "./../../axios/index"
+import { BaseForm } from "../../components/baseForm/baseForm"
 export class Order extends Component {
     state = {
         isShowModal: false,
         orderInfo: {},
     }
+    handleFilter = (params) => {
+        this.params = params;
+        console.log(params);
+        this.request()
+    }
+    formList = [{
+        type: 'SELECT',
+        label: '城市',
+        field: 'city',
+        placeholder: '全部',
+        initialValue: '1',
+        width: 80,
+        list: [{
+            id: '0', name: '全部',
+        }, {
+            id: '1', name: '北京',
+        }, {
+            id: '2', name: '上海',
+        }, {
+            id: '3', name: '天津',
+        }]
+    }, {
+        type: '时间查询',
+    }, {
+        type: 'SELECT',
+        label: '订单状态',
+        field: 'order_status',
+        placeholder: '全部',
+        initialValue: '1',
+        width: 100,
+        list: [{
+            id: '0', name: '全部',
+        }, {
+            id: '1', name: '进行中',
+        }, {
+            id: '2', name: '结束行程',
+        }]
+    }]
     componentWillMount() {
         this.request()
     }
@@ -136,7 +175,7 @@ export class Order extends Component {
         return (
             <div>
                 <Card style={{ marginBottom: 10 }}>
-                    <FilterForm />
+                    <BaseForm formList={this.formList} filterSubmit={this.handleFilter} />
                 </Card>
                 <Card style={{ marginBottom: 10 }}>
                     <Button
@@ -182,32 +221,4 @@ export class Order extends Component {
     }
 }
 
-class FilterForm extends Component {
-    render() {
-        return (
-            <Form layout="inline">
-                <Form.Item name="city" label="城市" initialValue="1">
-                    <Select style={{ width: 100 }} >
-                        <Select.Option value="0">全部</Select.Option>
-                        <Select.Option value="1">北京</Select.Option>
-                        <Select.Option value="2">天津</Select.Option>
-                        <Select.Option value="3">上海</Select.Option>
-                    </Select>
-                </Form.Item>
-                <Form.Item label="订单时间">
-                    <DatePicker placeholder='请选择开始时间' />&emsp;
-                    <DatePicker placeholder='请选择结束时间' />
-                </Form.Item>
-                <Form.Item label="订单状态" name="state" initialValue="1">
-                    <Select style={{ width: 100 }} >
-                        <Select.Option value="0">全部</Select.Option>
-                        <Select.Option value="1">进行中</Select.Option>
-                        <Select.Option value="2">结束行程</Select.Option>
-                    </Select>
-                </Form.Item>
-                <Button type="primary" style={{ margin: "0px 20px" }}>查询</Button>
-                <Button>重置</Button>
-            </Form>
-        )
-    }
-}
+

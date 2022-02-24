@@ -14,7 +14,41 @@ export class Detail extends Component {
             data: { params: { orderId: orderId } }
         }).then(res => {
             this.setState({ orderInfo: res.result })
-        })
+            this.renderMap(res.result);
+        });
+    }
+    renderMap = result => {
+        // 创建Map实例
+        this.map = new window.BMapGL.Map('orderDetailMap');
+        // 初始化地图,设置中心点坐标和地图级别
+        this.map.centerAndZoom(new window.BMapGL.Point(116.404, 39.915), 11);
+        // 添加地图控件
+        this.addMapControl()
+        // 调用路线图绘制方法
+        this.drawBikeRoute(result.position_list)
+    }
+    // 添加地图控件
+    addMapControl = () => {
+        let map = this.map
+        // 添加比例控件
+        map.addControl(new window.BMapGL.ScaleControl({ anchor: window.BMAP_ANCHOR_TOP_RIGHT }));
+        // 添加缩放控件
+        map.addControl(new window.BMapGL.ZoomControl({ anchor: window.BMAP_ANCHOR_TOP_RIGHT }));
+    }
+    // 绘制用户的行驶路线
+    drawBikeRoute = positionList => {
+        let startPoint = "";
+        if (positionList.leng > 0) {
+            let arr = positionList[0];
+            startPoint = new window.BMapGL.Point(arr.lon, arr.lat);
+            let startIcon = new window.BMapGL.Icon("/assets/start_point.png", new window.BMapGL.Size(36, 42), {
+                imageSize: new window.BMapGL.Size(36, 42),
+                anchor: new window.BMapGL.Size(36, 42)
+            })
+            let startMarker = new window.BMapGL.Marker(startPoint, { icon: startIcon });
+            this.map.addOverlay(startMarker)
+        }
+
     }
 
     render() {
@@ -23,7 +57,7 @@ export class Detail extends Component {
         return (
             <div style={{ width: "100%" }}>
                 <Card>
-                    <div id="orderDetailMap"></div>
+                    <div id="orderDetailMap" className="order-map"></div>
                     <div className="detail-items clearfix" >
                         <div className="item-title clearfix">基础信息</div>
                         <ul className="detail-form clearfix">

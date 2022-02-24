@@ -1,3 +1,4 @@
+import { Select } from 'antd';
 class Utils {
     static pagination(data, callback) {
         return {
@@ -13,6 +14,14 @@ class Utils {
             },
             showQuickJumper: true
         }
+    }
+    static getOptionList(data) {
+        if (!data) return [];
+        let options = []
+        data.map(item =>
+            options.push(<Select.Option value={item.id} key={item.id}>{item.name}</Select.Option>)
+        )
+        return options
     }
 }
 export default Utils
