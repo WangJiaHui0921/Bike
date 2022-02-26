@@ -12,6 +12,8 @@ import {
     City,
     Order,
     Detail as OrderDetail,
+    User,
+    BikeMap
 } from "./pages"
 import {
     Buttons,
@@ -50,6 +52,8 @@ export default class IRouter extends Component {
                                 <Route path="/table/high" component={HighTable} />
                                 <Route path="/city" component={City} />
                                 <Route path="/order" component={Order} />
+                                <Route path="/user" component={User} />
+                                <Route path="/bikeMap" component={BikeMap} />
                                 <Route component={Nomatch} />
                             </Admin>
                         } />

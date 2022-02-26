@@ -13,7 +13,6 @@ export class BaseForm extends Component {
     }
     initFormList = () => {
         const formList = this.props.formList;
-        console.log(formList);
         const formItemList = [];
         if (formList.length > 0 && formList !== []) {
             formList.forEach((item, index) => {
@@ -32,6 +31,14 @@ export class BaseForm extends Component {
                     </Form.Item>
                     formItemList.push(END_TIME)
                 }
+                if (item.type === "city") {
+                    const CITY = <Form.Item name={field} label={label} key={field} initialValue={initialValue}  >
+                        <Select style={{ width: 100 }} placeholder={placeholder}>
+                            {Utils.getOptionList(item.list)}
+                        </Select>
+                    </Form.Item>
+                    formItemList.push(CITY)
+                }
                 if (item.type === "INPUT") {
                     const INPUT = <Form.Item name={field} label={label} key={field} initialValue={initialValue}>
                         <Input text="text" placeholder={placeholder} />
@@ -45,6 +52,12 @@ export class BaseForm extends Component {
                         </Select>
                     </Form.Item>
                     formItemList.push(SELECT)
+                }
+                if (item.type === "DATEPICKER") {
+                    const DATEPICKER = <Form.Item name={field} label={label} key={field} initialValue={initialValue}>
+                        <DatePicker placeholder={placeholder} />
+                    </Form.Item>
+                    formItemList.push(DATEPICKER)
                 }
                 if (item.type === "CHECKBOX") {
                     const CHECKBOX =

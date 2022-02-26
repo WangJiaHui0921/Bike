@@ -1,5 +1,6 @@
 import { Select } from 'antd';
 class Utils {
+
     static pagination(data, callback) {
         return {
             onchange: (current) => {
@@ -22,6 +23,17 @@ class Utils {
             options.push(<Select.Option value={item.id} key={item.id}>{item.name}</Select.Option>)
         )
         return options
+    }
+    static updataSelectedItem(selectedRowKeys, selectedItem, selectedIds) {
+        if (selectedIds) this.setState({
+            selectedRowKeys,
+            selectedItem,
+            selectedIds
+        })
+        else this.setState({
+            selectedRowKeys,
+            selectedItem
+        })
     }
 }
 export default Utils

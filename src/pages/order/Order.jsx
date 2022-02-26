@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { Card, Form, Button, Table, Modal, message } from "antd"
+import { Card, Form, Button, Modal, message } from "antd"
 import axios from "./../../axios/index"
 import { BaseForm } from "../../components/baseForm/baseForm"
+import ETable from "./../../components/eTable/eTable"
+import Utils from '../../utils/utils';
 export class Order extends Component {
     state = {
         isShowModal: false,
@@ -51,19 +53,9 @@ export class Order extends Component {
     params = { page: 1 }
     // 获取数据
     request = () => {
-        axios.ajax({
-            url: "/oeder/list",
-            data: { params: { page: this.params.page } }
-        }).then(res => {
-            this.setState({ dataSource: res.result.item_list.map((item, index) => { item.key = index; return item }) })
-        })
+        axios.requestList(this, "/oeder/list", this.params)
     }
-    // 点击行选中
-    onRowClick = (record, index) => {
-        let selectedRowKeys = [index]
-        let selectedItem = record
-        this.setState({ selectedRowKeys, selectedItem })
-    }
+
     // 结束订单
     handleCloseOrder = () => {
         let item = this.state.selectedItem
@@ -186,13 +178,11 @@ export class Order extends Component {
                     <Button type="primary" onClick={this.handleCloseOrder}>订单结束</Button>
                 </Card>
                 <Card>
-                    <Table
+                    <ETable
+                        updataSelectedItem={Utils.updataSelectedItem.bind(this)}
                         columns={columns}
                         dataSource={this.state.dataSource}
-                        rowSelection={{ type: "radio", selectedRowKeys }}
-                        onRow={
-                            (record, index) => ({ onClick: () => this.onRowClick(record, index) })
-                        }
+                        selectedRowKeys={selectedRowKeys}
                     />
                 </Card>
                 <Modal

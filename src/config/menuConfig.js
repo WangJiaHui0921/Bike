@@ -100,7 +100,7 @@ const menuList = [
     key: '/bikeMap'
   },
   {
-    title: '图标',
+    title: '图表 ECharts',
     key: '/charts',
     children: [
       {
